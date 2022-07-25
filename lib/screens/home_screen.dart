@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_example/services/bloc/toggle_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,15 +15,20 @@ class HomeScreen extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              obscureText: true,
-              decoration: InputDecoration(
+            child: BlocBuilder<ToggleBloc, ToggleState>(
+              builder: (context, state) => TextField(
+                obscureText: true,
+                decoration: InputDecoration(
                   labelText: 'Password',
                   suffixIcon: IconButton(
-                      onPressed: () {},
-                      icon: const FaIcon(FontAwesomeIcons.eye))),
+                    onPressed: () =>
+                        context.read<ToggleBloc>().add(ToogleSubmitEvent()),
+                    icon: const FaIcon(FontAwesomeIcons.eye),
+                  ),
+                ),
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
