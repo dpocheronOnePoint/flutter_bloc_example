@@ -5,9 +5,9 @@ part 'toggle_event.dart';
 part 'toggle_state.dart';
 
 class ToggleBloc extends Bloc<ToggleEvent, ToggleState> {
-  ToggleBloc() : super(ToggleInitial()) {
+  ToggleBloc() : super(const ToggleInitialState(true)) {
     on<ToggleEvent>((event, emit) {
-      print("Je click");
+      emit(ToggleInitialState(!(state as ToggleInitialState).isOn));
     });
   }
 }

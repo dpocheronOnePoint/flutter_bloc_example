@@ -16,17 +16,22 @@ class HomeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: BlocBuilder<ToggleBloc, ToggleState>(
-              builder: (context, state) => TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  suffixIcon: IconButton(
-                    onPressed: () =>
-                        context.read<ToggleBloc>().add(ToogleSubmitEvent()),
-                    icon: const FaIcon(FontAwesomeIcons.eye),
+              builder: (context, state) {
+                print(state);
+                return TextField(
+                  obscureText: (state as ToggleInitialState).isOn,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    suffixIcon: IconButton(
+                      onPressed: () =>
+                          context.read<ToggleBloc>().add(ToogleSubmitEvent()),
+                      icon: FaIcon(state.isOn
+                          ? FontAwesomeIcons.eye
+                          : FontAwesomeIcons.eyeSlash),
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
           ),
         ],
